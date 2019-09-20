@@ -1,0 +1,22 @@
+---
+title: "p8105_hw1_ss5929"
+author: "ss5929"
+date: "9/19/2019"
+output: html_document
+---
+# problem1 
+##  part1
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+# create a dataframe
+samp <- rnorm(8)
+logical_greater_th_0 <- c(samp>0)
+chara_vec <- c("a","b","c","d","e","f","g","h")
+taste_vec <- factor(c("bad","bad","good","amazing","good","bad","good","amazing"),
+                    c("bad","good","amazing"),
+                    ordered =  TRUE)
+data_f    <-  data.frame(samp,logical_greater_th_0,chara_vec,taste_vec)
+```
+
