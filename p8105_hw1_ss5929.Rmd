@@ -1,0 +1,80 @@
+---
+title: "p8105_hw1_ss5929"
+author: "ss5929"
+date: "9/19/2019"
+output: github_document
+---
+#problem1 
+##part1 
+```{r}
+library(tidyverse)
+library(ggplot2)
+
+# create a dataframe
+samp        <- rnorm(8)
+logical_greater_th_0 <- c(samp>0)
+chara_vec   <- c("a","b","Z","d","e","f","g","!")
+taste_vec   <- factor(c("bad","bad","good","amazing","good","bad","good","amazing"),
+                      c("bad","good","amazing"),
+                      ordered =  TRUE)
+data_f      <- tibble(samp,logical_greater_th_0,chara_vec,taste_vec)
+
+# take the mean of each variable and the character and logical variable do not work 
+mean(samp)
+mean(logical_greater_th_0)
+mean(chara_vec) 
+mean(taste_vec) 
+```
+
+##part2
+```{r as.numeric}
+as.numeric(pull(data_f,logical_greater_th_0))
+as.numeric(pull(data_f,chara_vec))
+as.numeric(pull(data_f,taste_vec))
+```
+
+
+##part3
+```{r convert}
+#convert the logical vector to numeric
+logical_c_nu     <- as.numeric(logical_greater_th_0)
+logical_c_nu*samp
+
+#convert the logical vector to a factor
+logical_c_fa     <- as.factor(logical_greater_th_0)
+logical_c_fa*samp #the (*) does not work
+
+#convert the factor to numeric
+logical_c_re     <- as.numeric(logical_c_fa)
+logical_c_re*samp
+
+```
+
+#problem2 
+```{r}
+# create the dataframe
+x   <- rnorm(500)
+y   <- rnorm(500)
+lo  <- c(x+y>1)
+num <- as.numeric(lo)
+fa  <- as.factor(lo)
+df  <- data.frame(x,y,lo,num,fa)
+
+# description of vector
+ncol(df)
+nrow(df)
+mean(x)
+median(x)
+sd(x)
+
+# scatterplot
+first_plot<-ggplot(data=df,aes(x=x,y=y,color=lo)) + geom_point()+labs(title = "scatterplot of x vs y",x="x",y="y")
+            ggplot(data=df,aes(x=x,y=y,color=num))+ geom_point()+labs(title = "scatterplot of x vs y",x="x",y="y")
+            ggplot(data=df,aes(x=x,y=y,color=fa)) + geom_point()+labs(title = "scatterplot of x vs y",x="x",y="y")
+
+
+#ggsave
+ggsave("scatterplot of first plot in hw1.pdf",plot = first_plot )
+            
+```
+
